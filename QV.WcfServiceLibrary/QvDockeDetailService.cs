@@ -8,48 +8,46 @@ using QV.WcfServiceLibrary.Contracts;
 
 namespace QV.WcfServiceLibrary
 {
-
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-    public class QvDockService : IWCFQvDockService
+    public class QvDockeDetailService : IWCFQvDockDetailService
     {
-        private readonly IDockService _service;
+        private readonly IDockDetailServce _service;
 
-        public QvDockService()
+        public QvDockeDetailService()
         {
 
         }
 
-        public QvDockService(IDockService service)
+        public QvDockeDetailService(IDockDetailServce service)
         {
             _service = service;
         }
 
         [WebInvoke]
-        public Dock Get(int Id)
+        public DockDetail Get(int Id)
         {
             return _service.Find(Id);
         }
 
-        [WebInvoke]
-        public List<Dock> GetList()
+        [WebGet]
+        public List<DockDetail> GetList()
         {
             var asyncResult = _service.Query().SelectAsync();
             return asyncResult.Result.ToList();
-
         }
 
         [OperationBehavior(TransactionScopeRequired = true)]
         [WebInvoke]
-        public void Create(Dock dock)
+        public void Create(DockDetail DockDetail)
         {
-            _service.Insert(dock);
+            _service.Insert(DockDetail);
         }
 
         [OperationBehavior(TransactionScopeRequired = true)]
         [WebInvoke]
-        public void Update(Dock dock)
+        public void Update(DockDetail DockDetail)
         {
-            _service.Update(dock);
+            _service.Update(DockDetail);
         }
 
         [OperationBehavior(TransactionScopeRequired = true)]
@@ -61,8 +59,6 @@ namespace QV.WcfServiceLibrary
 
         public void Dispose()
         {
-
-
 
         }
     }

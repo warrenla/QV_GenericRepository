@@ -1,5 +1,4 @@
-﻿using QV.Data;
-using QV.Data.Models;
+﻿using QV.Data.Models;
 using Repository.Pattern.Ef6;
 
 namespace QV.Test.Unit_Test.Fake

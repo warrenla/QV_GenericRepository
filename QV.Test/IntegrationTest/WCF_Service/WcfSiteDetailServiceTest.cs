@@ -1,7 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QV.Data;
 using QV.Data.Models;
 using QV.Service;
 using QV.WcfServiceLibrary;
+using QV.WcfServiceLibrary.Contracts;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.Infrastructure;
@@ -51,7 +53,7 @@ namespace QV.Test.IntegrationTest.WCF_Service
 
                 IWCFQvSiteDetailService dService = new QvSiteDetailService(new SiteDetailService(repo));
 
-                var siteDetail = new Data.Models.SiteDetail()
+                var siteDetail = new SiteDetail()
                 {
                     Data = "Alpha, Beta",
                     Key = "l333",
@@ -137,7 +139,7 @@ namespace QV.Test.IntegrationTest.WCF_Service
                 IRepositoryAsync<SiteDetail> repo = new Repository<SiteDetail>(qvContext, unitOfWork);
 
                 IWCFQvSiteDetailService dService = new QvSiteDetailService(new SiteDetailService(repo));
-                var siteDetail = new Data.Models.SiteDetail()
+                var siteDetail = new SiteDetail()
                 {
                     Data = "Alpha, Beta",
                     Key = "l333",

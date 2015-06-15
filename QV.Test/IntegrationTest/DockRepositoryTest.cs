@@ -1,6 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Data.Entity.Infrastructure;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QV.Data;
 using QV.Data.Models;
-using QV.Service;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.Infrastructure;
@@ -71,7 +72,7 @@ namespace QV.Test.IntegrationTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(System.Data.Entity.Infrastructure.DbUpdateException))]
+        [ExpectedException(typeof(DbUpdateException))]
         public void CreateInvalidDockTest()
         {
             Dock newDock;

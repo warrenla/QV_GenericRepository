@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Repository.Pattern.Ef6;
 

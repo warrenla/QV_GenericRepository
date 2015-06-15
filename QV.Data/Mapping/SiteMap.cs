@@ -1,7 +1,7 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using QV.Data.Models;
 
-namespace QV.Data.Models.Mapping
+namespace QV.Data.Mapping
 {
     public class SiteMap : EntityTypeConfiguration<Site>
     {

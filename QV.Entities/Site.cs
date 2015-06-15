@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
 using System.Runtime.Serialization;
 using Repository.Pattern.Ef6;
-
-using System.ServiceModel;
 
 namespace QV.Data.Models
 {

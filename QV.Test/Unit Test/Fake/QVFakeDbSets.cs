@@ -3,9 +3,9 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Repository.Pattern.Ef6;
 using QV.Data.Models;
 using Repository.Pattern.Ef6;
+
 #endregion
 
 namespace QV.Test.Unit_Test.Fake

@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QV.Data.Models;
 using QV.Test.Unit_Test.Fake;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.Infrastructure;
 using Repository.Pattern.UnitOfWork;
-using QV.Data.Models;
 
 namespace QV.Test.Unit_Test.Repository
 {

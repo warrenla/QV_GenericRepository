@@ -1,9 +1,9 @@
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using QV.Data.Models.Mapping;
+using QV.Data.Mapping;
+using QV.Data.Models;
 using Repository.Pattern.Ef6;
 
-namespace QV.Data.Models
+namespace QV.Data
 {
     public partial class Qv21Context : DataContext
     {

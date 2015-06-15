@@ -1,15 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using QV.Data.Models;
-using QV.Service;
 using QV.Service.Contracts;
-using Repository.Pattern.DataContext;
-using Repository.Pattern.Ef6;
-using Repository.Pattern.Repositories;
-using Repository.Pattern.UnitOfWork;
+using QV.WcfServiceLibrary.Contracts;
 
 namespace QV.WcfServiceLibrary
 {

@@ -4,26 +4,26 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using QV.Data.Models;
 
-namespace QV.WcfServiceLibrary
+namespace QV.WcfServiceLibrary.Contracts
 {
     [ServiceContract]
-    public interface IWCFQvDockService : IDisposable
+    public interface IWCFQvDockDetailService : IDisposable
     {
         [OperationContract()]
         [WebGet]
-        Dock Get(int Id);
+        DockDetail Get(int Id);
 
         [OperationContract()]
         [WebGet]
-        List<Dock> GetList();
+        List<DockDetail> GetList();
 
         [OperationContract]
         [WebInvoke]
-        void Create(Dock dock);
+        void Create(DockDetail dockDetail);
 
         [OperationContract]
         [WebInvoke]
-        void Update(Dock dock);
+        void Update(DockDetail dockDetail);
 
         [OperationContract]
         [WebInvoke]

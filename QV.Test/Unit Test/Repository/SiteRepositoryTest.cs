@@ -1,14 +1,11 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QV.Data.Models;
-using QV.Repository.Repositories;
 using QV.Test.Unit_Test.Fake;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.Infrastructure;
-using Repository.Pattern.Repositories;
 using Repository.Pattern.UnitOfWork;
-using Site = QV.Data.Models.Site;
 
 namespace QV.Test.Unit_Test.Repository
 {
@@ -198,9 +195,7 @@ namespace QV.Test.Unit_Test.Repository
             }
         }
         #endregion
-
-     
-
+        
         [TestMethod]
         public void SiteDeepGraphLoad()
         {

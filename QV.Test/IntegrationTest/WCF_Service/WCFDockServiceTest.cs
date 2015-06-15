@@ -1,7 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QV.Data;
 using QV.Data.Models;
 using QV.Service;
 using QV.WcfServiceLibrary;
+using QV.WcfServiceLibrary.Contracts;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.Infrastructure;

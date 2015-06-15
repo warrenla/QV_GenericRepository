@@ -1,19 +1,15 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QV.Data;
 using QV.Data.Models;
 using QV.Service;
-using QV.Test.Unit_Test.Fake;
 using QV.WcfServiceLibrary;
+using QV.WcfServiceLibrary.Contracts;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.Infrastructure;
 using Repository.Pattern.Repositories;
 using Repository.Pattern.UnitOfWork;
-using Service.Pattern;
 
 namespace QV.Test.Unit_Test.Service
 {

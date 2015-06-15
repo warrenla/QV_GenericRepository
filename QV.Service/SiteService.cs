@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Threading.Tasks;
-using QV.Data.Models;
-using QV.Repository.Repositories;
+﻿using QV.Data.Models;
 using QV.Service.Contracts;
 using Repository.Pattern.Repositories;
 using Service.Pattern;

@@ -3,34 +3,37 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using QV.Data.Models;
-using Repository.Pattern.Infrastructure;
 
-namespace QV.WcfServiceLibrary
+namespace QV.WcfServiceLibrary.Contracts
 {
     [ServiceContract]
-    public interface IWCFQvSiteDetailService : IDisposable
+    public interface IWCFQvSiteService : IDisposable
     {
         [OperationContract()]
         [WebGet]
-        SiteDetail Get(int Id);
-
+        Site Get(int siteId);
+        
         [OperationContract()]
         [WebGet]
-        List<SiteDetail> GetList();
+        List<Site> GetList();
+
+        //[OperationContract]
+        //[WebGet]
+        //List<Site> GetSitesViaService();
 
         [OperationContract]
         [WebInvoke]
-        void Create(SiteDetail siteDetail);
+        void Create(Site site);
 
         [OperationContract]
         [WebInvoke]
-        void Update(SiteDetail siteDetail);
+        void Update(Site site);
 
         [OperationContract]
         [WebInvoke]
-        void Delete(int Id);
+        void Delete(int siteId);
 
 
-
+       
     }
 }

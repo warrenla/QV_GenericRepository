@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QV.Data;
 using QV.Data.Models;
 using QV.Service;
 using QV.Service.Contracts;
-using QV.Test.IntegrationTest;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;
 using Repository.Pattern.Repositories;

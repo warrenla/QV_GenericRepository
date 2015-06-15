@@ -20,7 +20,7 @@ namespace QV.Data.Models
             }
             catch (Exception)
             {
-                // iF THE DATABASE HAS NEVER BEEN CREATED IT WILL KICK OUT AN ERROR, FOR OUR NEEDS WE CAN IGNORE FOR NOW.
+                // iF THE DATABASE HAS NEVER BEEN CREATED IT WILL KICK OUT AN ERROR, FOR MY NEEDS IN THIS DEMO I CAN IGNORE FOR NOW.
             }
 
             base.InitializeDatabase(context);
