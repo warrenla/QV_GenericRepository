@@ -71,7 +71,7 @@
     <Compile Include="Contracts\IWCFQvSiteService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Contracts\IWCFQvSiteDetailService.cs" />
-    <Compile Include="QvDockeDetailService.cs" />
+    <Compile Include="QvDockDetailService.cs" />
     <Compile Include="QvDockService.cs" />
     <Compile Include="QvSiteDetailService.cs" />
     <Compile Include="QvSiteService.cs" />

@@ -9,16 +9,16 @@ using QV.WcfServiceLibrary.Contracts;
 namespace QV.WcfServiceLibrary
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-    public class QvDockeDetailService : IWCFQvDockDetailService
+    public class QvDockDetailService : IWCFQvDockDetailService
     {
         private readonly IDockDetailServce _service;
 
-        public QvDockeDetailService()
+        public QvDockDetailService()
         {
 
         }
 
-        public QvDockeDetailService(IDockDetailServce service)
+        public QvDockDetailService(IDockDetailServce service)
         {
             _service = service;
         }

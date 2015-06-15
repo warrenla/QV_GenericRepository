@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QV.Data", "QV.Data\QV.Data.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QV.WcfServiceLibrary", "QV.WcfServiceLibrary\QV.WcfServiceLibrary.csproj", "{5F81D5AA-3031-433A-B8B4-3477D62F63D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QV.SelfHost", "QV.SelfHost\QV.SelfHost.csproj", "{2865CE86-30B8-417B-B042-F722DC87A470}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{5F81D5AA-3031-433A-B8B4-3477D62F63D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F81D5AA-3031-433A-B8B4-3477D62F63D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F81D5AA-3031-433A-B8B4-3477D62F63D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2865CE86-30B8-417B-B042-F722DC87A470}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2865CE86-30B8-417B-B042-F722DC87A470}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2865CE86-30B8-417B-B042-F722DC87A470}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2865CE86-30B8-417B-B042-F722DC87A470}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
