@@ -62,9 +62,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="IntegrationTest\DockRepositoryTest.cs" />
+    <Compile Include="IntegrationTest\Repository\DockDetailRepositoryTests.cs" />
+    <Compile Include="IntegrationTest\Repository\DockRepositoryTest.cs" />
+    <Compile Include="IntegrationTest\Repository\SiteDetailRepositoryTests.cs" />
     <Compile Include="IntegrationTest\WCF_Service\WCFDockServiceTest.cs" />
-    <Compile Include="IntegrationTest\SiteRepositoryTest.cs" />
+    <Compile Include="IntegrationTest\Repository\SiteRepositoryTest.cs" />
     <Compile Include="IntegrationTest\Utility.cs" />
     <Compile Include="IntegrationTest\WCF_Service\WcfSiteDetailServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

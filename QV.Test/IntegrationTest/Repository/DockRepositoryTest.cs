@@ -1,4 +1,6 @@
 ﻿using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QV.Data;
 using QV.Data.Models;
@@ -108,6 +110,77 @@ namespace QV.Test.IntegrationTest
                 Assert.AreEqual(newDock.DockId, newDock.DockId);
             }
         }
+
+
+        [TestMethod]
+        public void ReadDockTest()
+        {
+            using (IDataContextAsync context = new Qv21Context(true))
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(context))
+            {
+                IRepositoryAsync<Dock> repositoryAsync = new Repository<Dock>(context, unitOfWork);
+                var result = repositoryAsync.Find(1);
+                Assert.IsNotNull(result);
+            }
+        }
+
+        [TestMethod]
+        public void ReadDocksTest()
+        {
+            using (IDataContextAsync context = new Qv21Context(true))
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(context))
+            {
+                IRepositoryAsync<Dock> repositoryAsync = new Repository<Dock>(context, unitOfWork);
+                var result = repositoryAsync.Query().Select();
+                Assert.IsNotNull(result.Count() > 1);
+            }
+        }
+
+        [TestMethod]
+        public void UpdateDockTest()
+        {
+            using (IDataContextAsync context = new Qv21Context(true))
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(context))
+            {
+                IRepositoryAsync<Dock> repositoryAsync = new Repository<Dock>(context, unitOfWork);
+                var result = repositoryAsync.Find(1);
+                Assert.IsNotNull(result);
+                result.Active = false;
+                repositoryAsync.Update(result);
+                unitOfWork.SaveChanges();
+            }
+            // Use another context to ensure data was updated and not a im memory result
+            using (IDataContextAsync context = new Qv21Context(true))
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(context))
+            {
+                IRepositoryAsync<Dock> repositoryAsync = new Repository<Dock>(context, unitOfWork);
+                var result = repositoryAsync.Find(1);
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Active == false);
+            }
+        }
+
+        [TestMethod]
+        public void DeleteDockTest()
+        {
+            using (IDataContextAsync context = new Qv21Context(true))
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(context))
+            {
+                IRepositoryAsync<Dock> repositoryAsync = new Repository<Dock>(context, unitOfWork);
+                repositoryAsync.Delete(1);
+                unitOfWork.SaveChanges();
+            }
+            // Use another context to ensure data was updated and not a im memory result
+            using (IDataContextAsync context = new Qv21Context(true))
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(context))
+            {
+                IRepositoryAsync<Dock> repositoryAsync = new Repository<Dock>(context, unitOfWork);
+                var result = repositoryAsync.Find(1);
+                Assert.IsNull(result);
+
+            }
+        }
+
 
         //[TestMethod]
         //public void SiteDockCountTest()
