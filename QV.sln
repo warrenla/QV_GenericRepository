@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QV.WcfServiceLibrary", "QV.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QV.SelfHost", "QV.SelfHost\QV.SelfHost.csproj", "{2865CE86-30B8-417B-B042-F722DC87A470}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QV.IISHost", "QV.IISHost\QV.IISHost.csproj", "{6EFF1E3D-CEFD-47F5-B3F5-7E7D6A10D259}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{2865CE86-30B8-417B-B042-F722DC87A470}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2865CE86-30B8-417B-B042-F722DC87A470}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2865CE86-30B8-417B-B042-F722DC87A470}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EFF1E3D-CEFD-47F5-B3F5-7E7D6A10D259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EFF1E3D-CEFD-47F5-B3F5-7E7D6A10D259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EFF1E3D-CEFD-47F5-B3F5-7E7D6A10D259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EFF1E3D-CEFD-47F5-B3F5-7E7D6A10D259}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
