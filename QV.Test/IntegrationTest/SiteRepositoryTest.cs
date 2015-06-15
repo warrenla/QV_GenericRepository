@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QV.Data.Models;
 using QV.Service;
+using QV.Service.Contracts;
 using QV.Test.IntegrationTest;
 using Repository.Pattern.DataContext;
 using Repository.Pattern.Ef6;

@@ -39,7 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DockDetailService.cs" />
+    <Compile Include="DockService.cs" />
+    <Compile Include="Contracts\IDockDetailServce.cs" />
+    <Compile Include="Contracts\IDockService.cs" />
+    <Compile Include="Contracts\ISiteDetailServce.cs" />
+    <Compile Include="Contracts\ISiteService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SiteDetailService.cs" />
     <Compile Include="SiteService.cs" />
   </ItemGroup>
   <ItemGroup>

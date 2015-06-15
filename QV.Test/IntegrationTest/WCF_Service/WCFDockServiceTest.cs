@@ -13,6 +13,7 @@ namespace QV.Test.IntegrationTest.WCF_Service
     [TestClass]
     public class WcfDockServiceTest
     {
+        #region TestSetup
         public WcfDockServiceTest()
         {
             //
@@ -37,8 +38,9 @@ namespace QV.Test.IntegrationTest.WCF_Service
                 testContextInstance = value;
             }
         }
+        #endregion
 
-        #region Dock Service Test
+        #region Unit Test for WCF Dock Service
         [TestMethod]
         public void createDock_GenerateNewDockObject_ReturnedWithID()
         {
@@ -78,9 +80,9 @@ namespace QV.Test.IntegrationTest.WCF_Service
                 IRepositoryAsync<Dock> repo = new Repository<Dock>(qvContext, unitOfWork);
                 IWCFQvDockService dService = new QvDockService(new DockService(repo));
 
-
                 //Act
                 var found = dService.Get(1);
+
                 //Assert
                 Assert.IsTrue(found.DockId == 1);
             }
@@ -107,8 +109,7 @@ namespace QV.Test.IntegrationTest.WCF_Service
                 unitOfWork.SaveChanges();
             }
 
-            //Assert 
-            //      Double check    - with a new context check to ensure site info changed in storage.
+            //Assert -- Check with a new context to ensure Dock info and is not being pulled from previous context in-memory.
 
             using (IDataContextAsync qvContext = new Qv21Context(true))
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(qvContext))
@@ -126,7 +127,7 @@ namespace QV.Test.IntegrationTest.WCF_Service
         }
 
         [TestMethod]
-        public void deleteSite_GetDock_DockIsDeleted()
+        public void deleteDocl_GetDock_DockIsDeleted()
         {
 
             using (IDataContextAsync qvContext = new Qv21Context(true))
@@ -135,8 +136,6 @@ namespace QV.Test.IntegrationTest.WCF_Service
                 //Arrange
                 IRepositoryAsync<Dock> repo = new Repository<Dock>(qvContext, unitOfWork);
                 IWCFQvDockService dService = new QvDockService(new DockService(repo));
-
-                //Create a dock with no FK relationships
 
                 var dock = new Dock()
                 {

@@ -1,16 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-
-
-
-//using Repository.Pattern.Repositories;
-
-
-
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System.Linq;
 using QV.Data.Models;
 using Repository.Pattern.Repositories;
 
@@ -30,8 +18,7 @@ namespace QV.Repository.Repositories
             return repository.Queryable().Where(s => s.SiteId == siteId).Select(s => s.SiteId).Count();
         }
 
-
-        public static Site GetSiteDeepGrapho(this IRepository<Site> siteRepository, IRepository<SiteDetail> siteDetailRepository , int siteId)
+        public static Site GetSiteDeepGrapho(this IRepository<Site> siteRepository, IRepository<SiteDetail> siteDetailRepository, int siteId)
         {
             //var result = from sr in siteRepository
             //    join sd in siteDetailRepository.Queryable().ToList() on sr.siteId equals sd
@@ -42,6 +29,4 @@ namespace QV.Repository.Repositories
             //return result;
         }
     }
-
-  
 }

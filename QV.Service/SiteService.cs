@@ -5,33 +5,12 @@ using System.ComponentModel.Design;
 using System.Threading.Tasks;
 using QV.Data.Models;
 using QV.Repository.Repositories;
+using QV.Service.Contracts;
 using Repository.Pattern.Repositories;
 using Service.Pattern;
 
 namespace QV.Service
 {
-    public interface IDockService : IService<Dock>
-    {
-        
-    }
-
-    public class DockService : Service<Dock>, IDockService
-    {
-        private readonly IRepositoryAsync<Dock> _repository;
-
-        public DockService(IRepositoryAsync<Dock> repository) : base(repository)
-        {
-            _repository = repository;
-        }
-    }
-
-    public interface ISiteService : IService<Site>
-    {
-        //int GetSiteDockCount(int siteId);
-
-        //void CreateSite(Site newSite);
-    }
-
     public class SiteService : Service<Site>, ISiteService
     {
 
@@ -63,25 +42,6 @@ namespace QV.Service
         //    _asynRepository.Insert(newSite);
         //}
 
-       
-    }
-
-    public interface ISiteDetailServce : IService<SiteDetail>
-    {
 
     }
-
-    public class SiteDetailService : Service<SiteDetail>, ISiteDetailServce
-    {
-        private readonly IRepositoryAsync<SiteDetail> _repository;
-
-        public SiteDetailService(IRepositoryAsync<SiteDetail> repository)
-            : base(repository)
-        {
-            _repository = repository;
-        }
-    }
-
-
-
 }

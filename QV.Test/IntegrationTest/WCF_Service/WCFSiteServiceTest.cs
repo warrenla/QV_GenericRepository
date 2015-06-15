@@ -23,6 +23,7 @@ namespace QV.Test.Unit_Test.Service
     [TestClass]
     public class SiteServiceTest
     {
+        #region TestSetup
         public SiteServiceTest()
         {
             //
@@ -47,7 +48,6 @@ namespace QV.Test.Unit_Test.Service
                 testContextInstance = value;
             }
         }
-
         #region Additional test attributes
         //
         // You can use the following additional attributes as you write your tests:
@@ -69,8 +69,9 @@ namespace QV.Test.Unit_Test.Service
         // public void MyTestCleanup() { }
         //
         #endregion
+        #endregion
 
-        #region Site Service Test
+        #region Unit Test for WCF Site Service
         [TestMethod]
         public void createSite_GenerateNewSiteObject_ReturnedWithID()
         {
@@ -83,7 +84,7 @@ namespace QV.Test.Unit_Test.Service
                 var site = new Site() { Active = true, Docks = null, Name = "FakeTest", ObjectState = ObjectState.Added, Properties = 1, PropertyName = "FakePropertyName", ShortName = "FakeShortName", Type = "1" };
 
                 //Act
-                siteService.CreateSite(site);
+                siteService.Create(site);
                 unitOfWork.SaveChanges();
 
                 //ASSERT
@@ -102,7 +103,7 @@ namespace QV.Test.Unit_Test.Service
                 IWCFQvSiteService siteService = new QvSiteService(new SiteService(siteRepository));    // Can use UNITY TO AVOID THE HARD CODE HERE.
 
                 //Act
-                var siteFound = siteService.GetSite(1);
+                var siteFound = siteService.Get(1);
                 //Assert
                 Assert.IsTrue(siteFound.SiteId == 1);
             }
@@ -121,17 +122,17 @@ namespace QV.Test.Unit_Test.Service
                 IWCFQvSiteService siteService = new QvSiteService(new SiteService(siteRepository));    // Can use UNITY TO AVOID THE HARD CODE HERE.
 
                 //Get a site 
-                Site site = siteService.GetSites().FirstOrDefault(x => x.SiteId == 1);
+                Site site = siteService.GetList().FirstOrDefault(x => x.SiteId == 1);
                 siteId = site.SiteId;
 
                 //Act
                 site.Name = "SiteNameChanged";
-                siteService.UpdateSite(site);
+                siteService.Update(site);
                 unitOfWork.SaveChanges();
             }
 
-            //Assert 
-            //      Double check    - with a new context check to ensure site info changed in storage.
+            //Assert -- Check with a new context to ensure site info and is not being pulled from previous context in-memory.
+
 
             using (IDataContextAsync qv2Context = new Qv21Context(true))
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(qv2Context))
@@ -141,7 +142,7 @@ namespace QV.Test.Unit_Test.Service
                 IWCFQvSiteService siteService = new QvSiteService(new SiteService(siteRepository));    // Can use UNITY TO AVOID THE HARD CODE HERE.
 
                 //Act
-                Site site = siteService.GetSites().FirstOrDefault(x => x.SiteId == siteId);
+                Site site = siteService.GetList().FirstOrDefault(x => x.SiteId == siteId);
 
                 //Assert
                 Assert.IsTrue(site.Name == "SiteNameChanged");
@@ -164,19 +165,19 @@ namespace QV.Test.Unit_Test.Service
                 var newSite = new Site() { Active = true, Docks = null, Name = "FakeTest", ObjectState = ObjectState.Added, Properties = 1, PropertyName = "FakePropertyName", ShortName = "FakeShortName", Type = "1" };
 
                 //Act
-                siteService.CreateSite(newSite);
+                siteService.Create(newSite);
                 unitOfWork.SaveChanges();
 
                 //Get a site 
-                Site site = siteService.GetSites().FirstOrDefault(x => x.SiteId == newSite.SiteId);
+                Site site = siteService.GetList().FirstOrDefault(x => x.SiteId == newSite.SiteId);
                 if (site != null)
                 {
                     siteId = site.SiteId;
                     //Act
-                    siteService.DeleteSite(site.SiteId);
+                    siteService.Delete(site.SiteId);
                     unitOfWork.SaveChanges();
                 }
-                var siteFound = siteService.GetSites().FirstOrDefault(x => x.SiteId == newSite.SiteId);
+                var siteFound = siteService.GetList().FirstOrDefault(x => x.SiteId == newSite.SiteId);
                 //Assert
                 Assert.IsNull(siteFound);
             }
@@ -187,7 +188,7 @@ namespace QV.Test.Unit_Test.Service
         }
         #endregion
 
-      
+
         //NOTE:  I have not added any negative test, but this should be done for a production test system.  Strictly a demo here.
 
     }

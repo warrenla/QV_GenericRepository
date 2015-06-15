@@ -13,6 +13,7 @@ namespace QV.Test.IntegrationTest.WCF_Service
     [TestClass]
     public class WcfSiteDetailServiceTest
     {
+        #region TestSetup
         public WcfSiteDetailServiceTest()
         {
             //
@@ -37,8 +38,8 @@ namespace QV.Test.IntegrationTest.WCF_Service
                 testContextInstance = value;
             }
         }
-
-        #region Dock Service Test
+        #endregion
+        #region Unit Test for WCF SiteDetail Service 
         [TestMethod]
         public void createSiteDetail_GenerateNewSiteDetailObject_ReturnedWithID()
         {
@@ -103,13 +104,12 @@ namespace QV.Test.IntegrationTest.WCF_Service
                 Id = siteDetail.SiteDetailId;
 
                 //Act
-                siteDetail.SiteId= 2;
+                siteDetail.SiteId = 2;
                 dService.Update(siteDetail);
                 unitOfWork.SaveChanges();
             }
 
-            //Assert 
-            //      Double check    - with a new context check to ensure site info changed in storage.
+            //Assert -- Check with a new context to ensure siteDetail info and is not being pulled from previous context in-memory.
 
             using (IDataContextAsync qvContext = new Qv21Context(true))
             using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(qvContext))
@@ -120,7 +120,7 @@ namespace QV.Test.IntegrationTest.WCF_Service
 
                 //Get 
                 SiteDetail siteDetail = dService.Get(Id);
-               
+
                 //Assert
                 Assert.IsTrue(siteDetail.SiteId == 2);
             }
@@ -150,7 +150,7 @@ namespace QV.Test.IntegrationTest.WCF_Service
                 dService.Create(siteDetail);
                 unitOfWork.SaveChanges();
 
-               
+
                 //Get a dock
                 dService.Delete(siteDetail.SiteDetailId);
                 unitOfWork.SaveChanges();
