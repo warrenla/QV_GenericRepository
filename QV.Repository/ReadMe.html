@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Seperation of Concerns - how to in the framework</title>
+</head>
+<body>
+    <h1>Adding Custom Queries to Repository</h1>
+
+
+    Add extension method for IRepository&lt;TEntity&gt; or (if async) IRepostioryAsync&lt;TEntity&gt;<br>
+<i>*Note: all things returned from Repository layer are of type TEntity or IEnumerable&lt;TEntity&gt; and not IQueryable&lt;TEntity&gt;, <br>
+    addressing compartmentalization concern that all queries are actually happening in the Repository layer.</i><br>
+    <br>
+    <div style="color:Black; background-color: aliceblue; width: 50%;">
+<pre>
+<span style="color:Blue">public</span> <span style="color:Blue">static</span> <span style="color:Blue">class</span> CustomerRepository
+{
+        <span style="color:Blue">public</span> <span style="color:Blue">static</span> <span style="color:Blue">decimal</span> GetCustomerOrderTotalByYear(
+        <span style="color:Blue">this</span> IRepository&lt;Customer&gt; repository,
+        <span style="color:Blue">string</span> customerId, <span style="color:Blue">int</span> year)
+    {
+        <span style="color:Blue">return</span> repository
+            .Find(customerId)
+            .Orders.SelectMany(o =&gt; o.OrderDetails)
+            .Select(o =&gt; o.Quantity*o.UnitPrice)
+            .Sum();
+    }
+        <span style="color:Green">// Custom query using IQueryable</span>
+        <span style="color:Blue">public</span> <span style="color:Blue">static</span> IEnumerable&lt;Customer&gt; CustomersByCompany(
+        <span style="color:Blue">this</span> IRepositoryAsync&lt;Customer&gt; repository,
+        <span style="color:Blue">string</span> companyName)
+    {
+        <span style="color:Blue">return</span> repository
+            .Queryable()
+            .Where(x =&gt; x.CompanyName.Contains(companyName))
+            .AsEnumerable();
+    }
+        <span style="color:Blue">public</span> <span style="color:Blue">static</span> IEnumerable&lt;CustomerOrder&gt; GetCustomerOrder(
+        <span style="color:Blue">this</span> IRepository&lt;Customer&gt; repository, 
+        <span style="color:Blue">string</span> country)
+    {
+        <span style="color:Blue">var</span> customers = repository.GetRepository&lt;Customer&gt;().Queryable();
+        <span style="color:Blue">var</span> orders = repository.GetRepository&lt;Order&gt;().Queryable();
+        <span style="color:Blue">var</span> query = <span style="color:Blue">from</span> c <span style="color:Blue">in</span> customers
+        <span style="color:Blue">join</span> o <span style="color:Blue">in</span> orders <span style="color:Blue">on</span> <span style="color:Blue">new</span> {a = c.CustomerID, b = c.Country}
+        <span style="color:Blue">equals</span> <span style="color:Blue">new</span> {a = o.CustomerID, b = country}
+        <span style="color:Blue">select</span> <span style="color:Blue">new</span> CustomerOrder
+            {
+                CustomerId = c.CustomerID,
+                ContactName = c.ContactName,
+                OrderId = o.OrderID,
+                OrderDate = o.OrderDate
+            };
+        <span style="color:Blue">return</span> query.AsEnumerable();
+    }
+}
+</pre>
+    </div>
+    <br>
+    Best practice, expose this through your service layer<br>
+    <br>
+    <div style="color:Black; background-color: aliceblue; width: 50%;">
+        <pre>
+<span style="color:Gray">///</span> <span style="color:Gray">&lt;summary&gt;</span>
+<span style="color:Gray">///</span><span style="color:Green">     Add any custom business logic (methods) here</span>
+<span style="color:Gray">///</span> <span style="color:Gray">&lt;/summary&gt;</span>
+<span style="color:Blue">public</span> <span style="color:Blue">interface</span> ICustomerService : IService&lt;Customer&gt;
+{
+        <span style="color:Blue">decimal</span> CustomerOrderTotalByYear(<span style="color:Blue">string</span> customerId, <span style="color:Blue">int</span> year);
+    IEnumerable&lt;Customer&gt; CustomersByCompany(<span style="color:Blue">string</span> companyName);
+    IEnumerable&lt;CustomerOrder&gt; GetCustomerOrder(<span style="color:Blue">string</span> country);
+}
+<span style="color:Gray">///</span> <span style="color:Gray">&lt;summary&gt;</span>
+<span style="color:Gray">///</span><span style="color:Green">     All methods that are exposed from Repository in Service are overridable to add business logic,</span>
+<span style="color:Gray">///</span><span style="color:Green">     business logic should be in the Service layer and not in repository for separation of concerns.</span>
+<span style="color:Gray">///</span> <span style="color:Gray">&lt;/summary&gt;</span>
+<span style="color:Blue">public</span> <span style="color:Blue">class</span> CustomerService : Service&lt;Customer&gt;, ICustomerService
+{
+        <span style="color:Blue">private</span> <span style="color:Blue">readonly</span> IRepositoryAsync&lt;Customer&gt; _repository;
+        <span style="color:Blue">public</span> CustomerService(IRepositoryAsync&lt;Customer&gt; repository) : <span style="color:Blue">base</span>(repository)
+    {
+        _repository = repository;
+    }
+        <span style="color:Blue">public</span> <span style="color:Blue">decimal</span> CustomerOrderTotalByYear(<span style="color:Blue">string</span> customerId, <span style="color:Blue">int</span> year)
+    {
+        <span style="color:Green">// add business logic here</span>
+        <span style="color:Blue">return</span> _repository.GetCustomerOrderTotalByYear(customerId, year);
+    }
+        <span style="color:Blue">public</span> IEnumerable&lt;Customer&gt; CustomersByCompany(<span style="color:Blue">string</span> companyName)
+    {
+        <span style="color:Green">// add business logic here</span>
+        <span style="color:Blue">return</span> _repository.CustomersByCompany(companyName);
+    }
+        <span style="color:Blue">public</span> IEnumerable&lt;CustomerOrder&gt; GetCustomerOrder(<span style="color:Blue">string</span> country)
+    {
+        <span style="color:Green">// add business logic here</span>
+        <span style="color:Blue">return</span> _repository.GetCustomerOrder(country);
+    }
+        <span style="color:Blue">public</span> <span style="color:Blue">override</span> <span style="color:Blue">void</span> Insert(Customer entity)
+    {
+        <span style="color:Green">// e.g. add business logic here before inserting</span>
+        <span style="color:Blue">base</span>.Insert(entity);
+    }
+        <span style="color:Blue">public</span> <span style="color:Blue">override</span> <span style="color:Blue">void</span> Delete(<span style="color:Blue">object</span> id)
+    {
+        <span style="color:Green">// e.g. add business logic here before deleting</span>
+        <span style="color:Blue">base</span>.Delete(id);
+    }
+}
+</pre>
+    </div>
+    <br>
+    Example in Web Api<br>
+    <br>
+    <div style="color:Black; background-color: aliceblue; width: 50%;">
+        <pre>
+<span style="color:Blue">public</span> <span style="color:Blue">class</span> CustomerController : WebApi
+{
+        <span style="color:Blue">private</span> <span style="color:Blue">readonly</span> ICustomerService _customerService;
+        <span style="color:Blue">public</span> CustomerController(ICustomerService customerService)
+    {
+        _customerService = customerService;
+    }
+        <span style="color:Blue">public</span> HttpResponseMessage CustomerOrderTotalByYear(<span style="color:Blue">string</span> customerId, <span style="color:Blue">int</span> year)
+    {
+        <span style="color:Blue">var</span> total = _customerService.CustomerOrderTotalByYear(customerId, year);
+        <span style="color:Blue">return</span> Request.CreateResponse(HttpStatusCode.OK, total);
+    }
+}
+</pre>
+    </div>
+
+</body>
+</html>

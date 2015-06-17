@@ -7,8 +7,6 @@ namespace QV.Service
 {
     public class SiteService : Service<Site>, ISiteService
     {
-
-
         private readonly IRepositoryAsync<Site> _asynRepository;
 
         public SiteService(IRepositoryAsync<Site> repository)

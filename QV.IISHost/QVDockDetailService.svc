@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Service="QV.WcfServiceLibrary.QvDockDetailService" %>
+﻿<%@ ServiceHost Service="QV.WcfServiceLibrary.QvDockDetailService" CodeBehind="WcfServiceFactory.cs"   %>
